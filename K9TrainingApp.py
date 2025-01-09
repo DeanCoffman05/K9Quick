@@ -9,7 +9,7 @@ import json
 class K9TrainingApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("K-9 QUICK Version 1.2")
+        self.root.title("K-9 QUICK Version 1.3 BETA")
         self.root.geometry("1250x1000")
         self.training_aids_list = []
         self.view_tree = None
