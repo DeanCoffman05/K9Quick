@@ -9,7 +9,11 @@ import json
 class K9TrainingApp:
     def __init__(self, root):
         self.root = root
+<<<<<<< HEAD
         self.root.title("K-9 QUICK Version 1.3 BETA")
+=======
+        self.root.title("K-9 QUICK Version 1.2")
+>>>>>>> main
         self.root.geometry("1250x1000")
         self.training_aids_list = []
         self.view_tree = None
@@ -39,6 +43,7 @@ class K9TrainingApp:
         # Creating input fields
         self.create_widgets()
 
+<<<<<<< HEAD
         self.enable_mouse_wheel_scrolling()
 
         # Load existing data
@@ -69,18 +74,25 @@ class K9TrainingApp:
         self.view_button = tk.Button(button_frame, text="View Records", command=self.open_view_window)
         self.view_button.pack(side="left", padx=5)
 
+<<<<<<< HEAD
         self.update_button = tk.Button(button_frame, text="Update Record", command=self.update_record, state='disabled')
+=======
+        self.update_button = tk.Button(button_frame, text="Update Record", command=self.update_record)
+>>>>>>> main
         self.update_button.pack(side="left", padx=5)
 
         self.new_button = tk.Button(button_frame, text="New Record", command=self.new_record)
         self.new_button.pack(side="left", padx=5)
 
+<<<<<<< HEAD
         self.merge_button = tk.Button(button_frame, text="Merge", command=self.merge_csv)
         self.merge_button.pack(side="left", padx=5)
 
         # -------------------------
         # MAIN INPUT FRAME (row=1)
         # -------------------------
+=======
+>>>>>>> main
         input_frame = tk.Frame(self.content_frame, borderwidth=2, relief="groove", padx=10, pady=10)
         input_frame.grid(row=1, column=0, padx=10, pady=5, sticky='nsew')
 
@@ -105,6 +117,7 @@ class K9TrainingApp:
         self.time_stop_entry = tk.Entry(input_frame, width=30)
         self.time_stop_entry.grid(row=4, column=1, padx=10, pady=5)
 
+<<<<<<< HEAD
         # -------------------------
         # TRAINING SECTION (row=2)
         # -------------------------
@@ -114,6 +127,12 @@ class K9TrainingApp:
         # ----------------------------------------
         # TRAINING AID FRAME (row=3, column=0)
         # ----------------------------------------
+=======
+        # Training Section
+        tk.Label(self.content_frame, text="TRAINING", font=("Helvetica", 14, "bold")).grid(
+            row=2, column=0, padx=10, pady=10, sticky='n')
+
+>>>>>>> main
         training_aid_frame = tk.Frame(self.content_frame, borderwidth=2, relief="groove", padx=10, pady=10)
         training_aid_frame.grid(row=3, column=0, padx=10, pady=5, sticky='nsew')
 
@@ -150,12 +169,17 @@ class K9TrainingApp:
             "Negative Alert": tk.BooleanVar()
         }
 
+<<<<<<< HEAD
         row = 7
+=======
+        row = 7  # Starting row for the checkboxes
+>>>>>>> main
         for alert_type, var in self.alert_types_vars.items():
             checkbox = tk.Checkbutton(training_aid_frame, text=alert_type, variable=var)
             checkbox.grid(row=row, column=0, padx=10, pady=2, sticky='w')
             row += 1
 
+<<<<<<< HEAD
         # Button to add/save training aids
         self.add_aid_button = tk.Button(training_aid_frame, text="Save Aid / Add Another Aid", command=self.add_training_aid)
         self.add_aid_button.grid(row=row, column=1, sticky='e', padx=10, pady=5)
@@ -166,6 +190,17 @@ class K9TrainingApp:
         # ------------------------------------------------------------
         self.aid_list_frame = tk.Frame(training_aid_frame, borderwidth=2, relief="groove", padx=10, pady=10)
         self.aid_list_frame.grid(row=row+1, column=0, columnspan=2, padx=10, pady=5, sticky='nsew')
+=======
+        # Save Aid Button
+        self.add_aid_button = tk.Button(training_aid_frame, text="Save Aid / Add Another Aid", command=self.add_training_aid)
+        self.add_aid_button.grid(row=row, column=1, sticky='e', padx=10, pady=5)
+
+        # ------------------------------------------------
+        # 4. FRAME FOR ADDED TRAINING AIDS (row=3, col=1)
+        # ------------------------------------------------
+        self.aid_list_frame = tk.Frame(self.content_frame, borderwidth=2, relief="groove", padx=10, pady=10)
+        self.aid_list_frame.grid(row=3, column=1, padx=10, pady=5, sticky='nsew')
+>>>>>>> main
 
         tk.Label(self.aid_list_frame, text="Added Training Aids").pack(anchor='w')
 
@@ -176,6 +211,7 @@ class K9TrainingApp:
                                     wrap='word',
                                     yscrollcommand=self.aid_list_scrollbar.set)
         self.aid_list_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
+<<<<<<< HEAD
         self.aid_list_scrollbar.config(command=self.aid_list_text.yview)
         self.aid_list_text.bind("<Double-1>", self.edit_training_aid)
 
@@ -210,6 +246,15 @@ class K9TrainingApp:
 
         # ------------------------------------------------
         # DEPLOYMENT (row=4)
+=======
+
+        self.aid_list_scrollbar.config(command=self.aid_list_text.yview)
+        
+        self.aid_list_text.bind("<Double-1>", self.edit_training_aid)
+
+        # ------------------------------------------------
+        # 5. CASE DETAILS FRAME (row=4)
+>>>>>>> main
         # ------------------------------------------------
         tk.Label(self.content_frame, text="DEPLOYMENT", font=("Helvetica", 14, "bold")).grid(
             row=4, column=0, padx=10, pady=10, sticky='n')
@@ -234,11 +279,20 @@ class K9TrainingApp:
         self.dob_license_entry.grid(row=3, column=1, padx=10, pady=5)
 
         # ------------------------------------------------
+<<<<<<< HEAD
         # NARRATIVE (row=6)
         # ------------------------------------------------
         tk.Label(self.content_frame, text="Narrative").grid(row=6, column=0, padx=10, pady=5, sticky='nw')
         self.narrative_text = tk.Text(self.content_frame, width=80, height=10)
         self.narrative_text.grid(row=7, column=0, padx=10, pady=5, sticky='w')    
+=======
+        # 6. NARRATIVE (row=6)
+        # ------------------------------------------------
+        tk.Label(self.content_frame, text="Narrative").grid(row=6, column=0, padx=10, pady=5, sticky='nw')
+        self.narrative_text = tk.Text(self.content_frame, width=80, height=10)
+        self.narrative_text.grid(row=7, column=0, padx=10, pady=5, sticky='w')
+        
+>>>>>>> main
 
     def add_training_aid(self):
         #Add a new training aid or update an existing one."""
@@ -526,6 +580,7 @@ class K9TrainingApp:
         # Show confirmation message
         messagebox.showinfo("New Record", "All fields have been cleared.")
 
+<<<<<<< HEAD
     def merge_csv(self):
             file = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
             if not file:
@@ -550,6 +605,8 @@ class K9TrainingApp:
                 messagebox.showerror("Error", f"Error merging files: {e}")
 
 
+=======
+>>>>>>> main
                     
     def update_record(self):
         if self.view_tree is None:
