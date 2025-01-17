@@ -192,6 +192,7 @@ class K9TrainingApp:
         self.gun_fire_var = tk.BooleanVar()
         self.muzzle_var = tk.BooleanVar()
         self.building_search_var = tk.BooleanVar()
+        self.tracking_var = tk.BooleanVar()
 
         tk.Checkbutton(self.training_checkbox_frame, text="Obedience", variable=self.obedience_var).pack(anchor='w')
         tk.Checkbutton(self.training_checkbox_frame, text="Bite Work", variable=self.bite_work_var).pack(anchor='w')
@@ -199,6 +200,7 @@ class K9TrainingApp:
         tk.Checkbutton(self.training_checkbox_frame, text="Gun Fire", variable=self.gun_fire_var).pack(anchor='w')
         tk.Checkbutton(self.training_checkbox_frame, text="Muzzle", variable=self.muzzle_var).pack(anchor='w')
         tk.Checkbutton(self.training_checkbox_frame, text="Building Search", variable=self.building_search_var).pack(anchor='w')
+        tk.Checkbutton(self.training_checkbox_frame, text="Tracking / Trailing", variable=self.tracking_var).pack(anchor='w')
 
         tk.Label(self.training_checkbox_frame, text="Miscellaneous:").pack(anchor='w', pady=(10, 0))
         self.misc_entry = tk.Entry(self.training_checkbox_frame, width=30)
@@ -514,6 +516,9 @@ class K9TrainingApp:
 
         # Reset alert type checkboxes
         for var in self.alert_types_vars.values():
+            var.set(False)
+            
+        for var in self.training_checkbox_frame.values():
             var.set(False)
 
         # Disable update button
