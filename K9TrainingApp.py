@@ -51,6 +51,10 @@ class K9TrainingApp:
     def _on_mousewheel(self, event):
         self.canvas.yview_scroll(-1 * (event.delta // 120), "units")
 
+=======
+        # Load existing data
+        self.load_data()
+>>>>>>> main
 
     def create_widgets(self):
         button_frame = tk.Frame(self.content_frame, padx=10, pady=10)
