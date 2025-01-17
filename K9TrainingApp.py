@@ -9,7 +9,11 @@ import json
 class K9TrainingApp:
     def __init__(self, root):
         self.root = root
+<<<<<<< HEAD
+        self.root.title("K-9 QUICK Version 1.3 BETA")
+=======
         self.root.title("K-9 QUICK Version 1.2")
+>>>>>>> main
         self.root.geometry("1250x1000")
         self.training_aids_list = []
         self.view_tree = None
@@ -39,8 +43,23 @@ class K9TrainingApp:
         # Creating input fields
         self.create_widgets()
 
+<<<<<<< HEAD
+        self.enable_mouse_wheel_scrolling()
+
         # Load existing data
         self.load_data()
+        
+    def enable_mouse_wheel_scrolling(self):
+        # Bind for Windows / Linux
+        self.canvas.bind_all("<MouseWheel>", self._on_mousewheel)
+        
+    def _on_mousewheel(self, event):
+        self.canvas.yview_scroll(-1 * (event.delta // 120), "units")
+
+=======
+        # Load existing data
+        self.load_data()
+>>>>>>> main
 
     def create_widgets(self):
         button_frame = tk.Frame(self.content_frame, padx=10, pady=10)
@@ -55,12 +74,25 @@ class K9TrainingApp:
         self.view_button = tk.Button(button_frame, text="View Records", command=self.open_view_window)
         self.view_button.pack(side="left", padx=5)
 
+<<<<<<< HEAD
+        self.update_button = tk.Button(button_frame, text="Update Record", command=self.update_record, state='disabled')
+=======
         self.update_button = tk.Button(button_frame, text="Update Record", command=self.update_record)
+>>>>>>> main
         self.update_button.pack(side="left", padx=5)
 
         self.new_button = tk.Button(button_frame, text="New Record", command=self.new_record)
         self.new_button.pack(side="left", padx=5)
 
+<<<<<<< HEAD
+        self.merge_button = tk.Button(button_frame, text="Merge", command=self.merge_csv)
+        self.merge_button.pack(side="left", padx=5)
+
+        # -------------------------
+        # MAIN INPUT FRAME (row=1)
+        # -------------------------
+=======
+>>>>>>> main
         input_frame = tk.Frame(self.content_frame, borderwidth=2, relief="groove", padx=10, pady=10)
         input_frame.grid(row=1, column=0, padx=10, pady=5, sticky='nsew')
 
@@ -85,10 +117,22 @@ class K9TrainingApp:
         self.time_stop_entry = tk.Entry(input_frame, width=30)
         self.time_stop_entry.grid(row=4, column=1, padx=10, pady=5)
 
+<<<<<<< HEAD
+        # -------------------------
+        # TRAINING SECTION (row=2)
+        # -------------------------
+        tk.Label(self.content_frame, text="TRAINING", font=("Helvetica", 14, "bold")).grid(
+            row=2, column=0, padx=10, pady=10, sticky='n')
+
+        # ----------------------------------------
+        # TRAINING AID FRAME (row=3, column=0)
+        # ----------------------------------------
+=======
         # Training Section
         tk.Label(self.content_frame, text="TRAINING", font=("Helvetica", 14, "bold")).grid(
             row=2, column=0, padx=10, pady=10, sticky='n')
 
+>>>>>>> main
         training_aid_frame = tk.Frame(self.content_frame, borderwidth=2, relief="groove", padx=10, pady=10)
         training_aid_frame.grid(row=3, column=0, padx=10, pady=5, sticky='nsew')
 
@@ -125,12 +169,28 @@ class K9TrainingApp:
             "Negative Alert": tk.BooleanVar()
         }
 
+<<<<<<< HEAD
+        row = 7
+=======
         row = 7  # Starting row for the checkboxes
+>>>>>>> main
         for alert_type, var in self.alert_types_vars.items():
             checkbox = tk.Checkbutton(training_aid_frame, text=alert_type, variable=var)
             checkbox.grid(row=row, column=0, padx=10, pady=2, sticky='w')
             row += 1
 
+<<<<<<< HEAD
+        # Button to add/save training aids
+        self.add_aid_button = tk.Button(training_aid_frame, text="Save Aid / Add Another Aid", command=self.add_training_aid)
+        self.add_aid_button.grid(row=row, column=1, sticky='e', padx=10, pady=5)
+
+        # ------------------------------------------------------------
+        # (Moved) FRAME FOR ADDED TRAINING AIDS --> now inside the same
+        # 'training_aid_frame' instead of row=3, col=1 in content_frame
+        # ------------------------------------------------------------
+        self.aid_list_frame = tk.Frame(training_aid_frame, borderwidth=2, relief="groove", padx=10, pady=10)
+        self.aid_list_frame.grid(row=row+1, column=0, columnspan=2, padx=10, pady=5, sticky='nsew')
+=======
         # Save Aid Button
         self.add_aid_button = tk.Button(training_aid_frame, text="Save Aid / Add Another Aid", command=self.add_training_aid)
         self.add_aid_button.grid(row=row, column=1, sticky='e', padx=10, pady=5)
@@ -140,6 +200,7 @@ class K9TrainingApp:
         # ------------------------------------------------
         self.aid_list_frame = tk.Frame(self.content_frame, borderwidth=2, relief="groove", padx=10, pady=10)
         self.aid_list_frame.grid(row=3, column=1, padx=10, pady=5, sticky='nsew')
+>>>>>>> main
 
         tk.Label(self.aid_list_frame, text="Added Training Aids").pack(anchor='w')
 
@@ -150,6 +211,42 @@ class K9TrainingApp:
                                     wrap='word',
                                     yscrollcommand=self.aid_list_scrollbar.set)
         self.aid_list_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
+<<<<<<< HEAD
+        self.aid_list_scrollbar.config(command=self.aid_list_text.yview)
+        self.aid_list_text.bind("<Double-1>", self.edit_training_aid)
+
+        # ------------------------------------------------------------
+        # NEW FRAME WHERE THE OLD "ADDED TRAINING AIDS" FRAME WAS:
+        # row=3, column=1 in the content_frame
+        # ------------------------------------------------------------
+        self.training_checkbox_frame = tk.Frame(self.content_frame, borderwidth=2, relief="groove", padx=10, pady=10)
+        self.training_checkbox_frame.grid(row=3, column=1, padx=10, pady=5, sticky='nsew')
+
+        # Add label or heading for this new frame
+        tk.Label(self.training_checkbox_frame, text="Training Options", font=("Helvetica", 12, "bold")).pack(anchor='w', pady=5)
+
+        # Create BooleanVars for each checkbox
+        self.obedience_var = tk.BooleanVar()
+        self.bite_work_var = tk.BooleanVar()
+        self.article_search_var = tk.BooleanVar()
+        self.gun_fire_var = tk.BooleanVar()
+        self.muzzle_var = tk.BooleanVar()
+        self.building_search_var = tk.BooleanVar()
+
+        tk.Checkbutton(self.training_checkbox_frame, text="Obedience", variable=self.obedience_var).pack(anchor='w')
+        tk.Checkbutton(self.training_checkbox_frame, text="Bite Work", variable=self.bite_work_var).pack(anchor='w')
+        tk.Checkbutton(self.training_checkbox_frame, text="Article Search", variable=self.article_search_var).pack(anchor='w')
+        tk.Checkbutton(self.training_checkbox_frame, text="Gun Fire", variable=self.gun_fire_var).pack(anchor='w')
+        tk.Checkbutton(self.training_checkbox_frame, text="Muzzle", variable=self.muzzle_var).pack(anchor='w')
+        tk.Checkbutton(self.training_checkbox_frame, text="Building Search", variable=self.building_search_var).pack(anchor='w')
+
+        tk.Label(self.training_checkbox_frame, text="Miscellaneous:").pack(anchor='w', pady=(10, 0))
+        self.misc_entry = tk.Entry(self.training_checkbox_frame, width=30)
+        self.misc_entry.pack(anchor='w', padx=5, pady=5)
+
+        # ------------------------------------------------
+        # DEPLOYMENT (row=4)
+=======
 
         self.aid_list_scrollbar.config(command=self.aid_list_text.yview)
         
@@ -157,6 +254,7 @@ class K9TrainingApp:
 
         # ------------------------------------------------
         # 5. CASE DETAILS FRAME (row=4)
+>>>>>>> main
         # ------------------------------------------------
         tk.Label(self.content_frame, text="DEPLOYMENT", font=("Helvetica", 14, "bold")).grid(
             row=4, column=0, padx=10, pady=10, sticky='n')
@@ -181,12 +279,20 @@ class K9TrainingApp:
         self.dob_license_entry.grid(row=3, column=1, padx=10, pady=5)
 
         # ------------------------------------------------
+<<<<<<< HEAD
+        # NARRATIVE (row=6)
+        # ------------------------------------------------
+        tk.Label(self.content_frame, text="Narrative").grid(row=6, column=0, padx=10, pady=5, sticky='nw')
+        self.narrative_text = tk.Text(self.content_frame, width=80, height=10)
+        self.narrative_text.grid(row=7, column=0, padx=10, pady=5, sticky='w')    
+=======
         # 6. NARRATIVE (row=6)
         # ------------------------------------------------
         tk.Label(self.content_frame, text="Narrative").grid(row=6, column=0, padx=10, pady=5, sticky='nw')
         self.narrative_text = tk.Text(self.content_frame, width=80, height=10)
         self.narrative_text.grid(row=7, column=0, padx=10, pady=5, sticky='w')
         
+>>>>>>> main
 
     def add_training_aid(self):
         #Add a new training aid or update an existing one."""
@@ -474,6 +580,33 @@ class K9TrainingApp:
         # Show confirmation message
         messagebox.showinfo("New Record", "All fields have been cleared.")
 
+<<<<<<< HEAD
+    def merge_csv(self):
+            file = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
+            if not file:
+                return
+
+            try:
+                # Read existing file
+                existing_df = pd.read_csv(self.data_file) if os.path.exists(self.data_file) else pd.DataFrame()
+                # Read new file
+                new_df = pd.read_csv(file)
+
+                # Merge data
+                if not existing_df.empty:
+                    merged_df = pd.concat([existing_df, new_df]).drop_duplicates(keep='first')
+                else:
+                    merged_df = new_df
+
+                # Save merged data back to the original file
+                merged_df.to_csv(self.data_file, index=False)
+                messagebox.showinfo("Success", "Files merged successfully.")
+            except Exception as e:
+                messagebox.showerror("Error", f"Error merging files: {e}")
+
+
+=======
+>>>>>>> main
                     
     def update_record(self):
         if self.view_tree is None:
